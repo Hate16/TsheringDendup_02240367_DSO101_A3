@@ -1,0 +1,34 @@
+services:
+  - type: web
+    name: be-todo
+    env: docker
+    dockerfilePath: ./todo-app/backend/Dockerfile
+    dockerContext: ./todo-app/backend
+    region: oregon
+    plan: free
+    envVars:
+      - key: DB_HOST
+        value: dpg-d7un4ujtqb8s73cns5h0-a.oregon-postgres.render.com
+      - key: DB_PORT
+        value: 5432
+      - key: DB_NAME
+        value: tododb_8jjw
+      - key: DB_USER
+        value: tododb_8jjw_user
+      - key: DB_PASSWORD
+        sync: false
+      - key: DB_SSL
+        value: true
+      - key: PORT
+        value: 5000
+
+  - type: web
+    name: fe-todo
+    env: docker
+    dockerfilePath: ./todo-app/frontend/Dockerfile
+    dockerContext: ./todo-app/frontend
+    region: oregon
+    plan: free
+    envVars:
+      - key: REACT_APP_API_URL
+        value: https://be-todo-mek1.onrender.com

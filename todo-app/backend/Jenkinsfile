@@ -1,0 +1,41 @@
+pipeline {
+    agent any
+    tools {
+        nodejs 'NodeJS'
+    }
+    stages {
+
+        stage('Install') {
+            steps {
+                dir('C:\\Users\\tdend\\OneDrive\\Desktop\\DSO_assignment 2\\todo-app\\backend') {
+                    bat 'npm install'
+                }
+            }
+        }
+
+        stage('Build') {
+            steps {
+                dir('C:\\Users\\tdend\\OneDrive\\Desktop\\DSO_assignment 2\\todo-app\\backend') {
+                    bat 'npm run build'
+                }
+            }
+        }
+
+        stage('Test') {
+            steps {
+                dir('C:\\Users\\tdend\\OneDrive\\Desktop\\DSO_assignment 2\\todo-app\\backend') {
+                    bat 'npm test'
+                 }
+            }
+        }
+    }
+
+    post {
+        success {
+            echo 'Pipeline completed successfully!'
+        }
+        failure {
+            echo 'Pipeline failed. Check the logs.'
+        }
+    }
+}
